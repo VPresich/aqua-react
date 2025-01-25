@@ -1,11 +1,14 @@
 import DocumentTitle from "../../components/DocumentTitle";
+import { Page } from "../../components/Page/Page";
 // import css from "./ResetPasswordPage.module.css";
 
 export default function ResetPasswordPage() {
   return (
-    <div>
+    <>
       <DocumentTitle>Reset Password Page</DocumentTitle>
-      <p>Reset Password Page</p>
-    </div>
+      <Page>
+        <p>Reset Password Page</p>
+      </Page>
+    </>
   );
 }

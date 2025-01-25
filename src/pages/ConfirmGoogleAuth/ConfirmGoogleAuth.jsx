@@ -1,9 +1,12 @@
 import DocumentTitle from "../../components/DocumentTitle";
+import { Page } from "../../components/Page/Page";
 export default function ConfirmGoogleAuth() {
   return (
-    <div>
+    <>
       <DocumentTitle>Confirm Google Auth page</DocumentTitle>
-      <p>ConfirmGoogleAuth</p>
-    </div>
+      <Page>
+        <p>ConfirmGoogleAuth</p>
+      </Page>
+    </>
   );
 }

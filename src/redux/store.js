@@ -18,14 +18,14 @@ import { setupAxiosInterceptors } from "./user/userOps";
 const userPersistConfig = {
   key: "user",
   storage,
-  whitelist: ["accessToken", "refreshToken"],
+  whitelist: ["accessToken"],
 };
 
 export const store = configureStore({
   reducer: {
+    loader: loaderReducer,
     water: waterReducer,
     auth: persistReducer(userPersistConfig, userReducer),
-    loader: loaderReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
