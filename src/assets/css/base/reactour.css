@@ -1,0 +1,24 @@
+.reactour__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overflow: -moz-hidden-unscrollable;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.reactour__popover {
+  background-color: var(--color-white) !important;
+  color: var(--color-black) !important;
+  border-radius: 15px !important;
+}
+
+.reactour__popover span {
+  background: var(--color-lightgreenhover) !important;
+}
+
+.reactour__popover > div {
+  justify-content: flex-start !important;
+}

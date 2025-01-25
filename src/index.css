@@ -19,14 +19,14 @@
 
 @font-face {
   font-family: "Poppins";
-  src: url("/Poppins-Regular.ttf");
+  src: url("./assets/fonts/Poppins-Regular.ttf");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Poppins";
-  src: url("/Poppins-Bold.ttf");
+  src: url("./assets/fonts/Poppins-Bold.ttf");
   font-weight: 700;
   font-style: normal;
 }
