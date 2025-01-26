@@ -1,106 +1,101 @@
-import { useForm } from "react-hook-form";
+import { useForm, FormProvider, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import InputField from "../InputField/InputField";
-import PasswordField from "../PasswordField/PasswordField";
+import Input from "../Input/Input";
 import FormFooter from "../FormFooter/FormFooter";
-import { useDispatch } from "react-redux";
-import { signUp } from "../../redux/user/userOps";
-import { useNavigate } from "react-router-dom";
 import GoogleButton from "../GoogleButton/GoogleButton";
-import { useState } from "react";
+import { signupFormSchema } from "../../helpers/formsValidation/signUpFormSchema";
 import { useTranslation } from "react-i18next";
+import { errNotify } from "../../helpers/notification";
 import css from "./SignupForm.module.css";
 
-const validationSchema = (t) =>
-  Yup.object().shape({
-    email: Yup.string()
-      .email(t("signUpPage.emailSpanError"))
-      .matches(
-        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-        t("validation.emailValid")
-      )
-      .min(5, t("validation.emailShort"))
-      .max(50, t("validation.emailLong"))
-      .required(t("validation.emailRequired")),
-    password: Yup.string()
-      .min(8, t("signUpPage.passwordSpanError"))
-      .max(50, t("validation.passwordLong"))
-      .matches(/[a-zA-Z]/, t("validation.passwordContainsLetter"))
-      .matches(/\d/, t("validation.passwordContainsNumber"))
-      .required(t("validation.passwordRequired")),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], t("validation.passwordMatch"))
-      .required(t("validation.passwordRepeat")),
-  });
-
-export default function SignupForm() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+export default function SignupForm({ handleSignup }) {
   const { t } = useTranslation();
-  const [serverError, setServerError] = useState("");
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(validationSchema(t)),
+
+  const methods = useForm({
+    resolver: yupResolver(signupFormSchema(t)),
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
   });
 
-  const onSubmit = async (data) => {
-    setServerError("");
-    const { confirmPassword, ...userData } = data;
+  const { handleSubmit } = methods;
+
+  const onSubmit = async (values) => {
+    const filteredValues = { ...values };
+    delete filteredValues.confirmPassword;
     try {
-      const response = await dispatch(signUp(userData)).unwrap();
-      if (response.status === 201) {
-        navigate("/signin");
-        reset();
-      }
+      await handleSignup(filteredValues);
     } catch (error) {
-      setServerError(error.message || "Registration failed. Please try again.");
+      errNotify(error.message);
     }
   };
 
   return (
-    <div className={css.SignUpContainer}>
-      <form className={css.form} onSubmit={handleSubmit(onSubmit)} noValidate>
-        <h2 className={CSSFontFaceRule.signupTitle}>
-          {t("signUpPage.signUp")}
-        </h2>
-        <InputField
-          id="email"
-          label={t("signUpPage.email")}
-          type="email"
-          placeholder={t("signUpPage.emailPlaceholder")}
-          error={errors.email?.message}
-          register={register("email")}
-        />
-        <PasswordField
-          id="password"
-          label={t("signUpPage.password")}
-          placeholder={t("signUpPage.passwordPlaceholder")}
-          error={errors.password?.message}
-          register={register("password")}
-        />
-        <PasswordField
-          id="confirmPassword"
-          label={t("signUpPage.repeatPassword")}
-          placeholder={t("signUpPage.repeatPassword")}
-          error={errors.confirmPassword?.message}
-          register={register("confirmPassword")}
-        />
-        {serverError && <p className={css.error}>{serverError}</p>}
-        <button type="submit" className={css.button}>
-          {t("signUpPage.signUp")}
-        </button>
-        <GoogleButton text="googleButton.googleUpBtn" />
-        <FormFooter
-          text={t("signUpPage.textAlready")}
-          linkText={t("signUpPage.signIn")}
-          linkHref="/signin"
-        />
-      </form>
-    </div>
+    <FormProvider {...methods}>
+      <div className={css.container}>
+        <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
+          <h2 className={CSSFontFaceRule.title}>Sign Up</h2>
+
+          <div className={css.inputs}>
+            <Controller
+              name="email"
+              control={methods.control}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  label={t("signUpPage.email")}
+                  placeholder={t("signUpPage.emailPlaceholder")}
+                  type="text"
+                  autoComplete="email"
+                  isLarge={true}
+                />
+              )}
+            />
+            <Controller
+              name="password"
+              control={methods.control}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  label={t("signUpPage.password")}
+                  placeholder={t("signUpPage.passwordPlaceholder")}
+                  type="password"
+                  autoComplete="new-password"
+                  isLarge={true}
+                />
+              )}
+            />
+            <Controller
+              name="confirmPassword"
+              control={methods.control}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  label={t("signUpPage.repeatPassword")}
+                  placeholder={t("signUpPage.repeatPassword")}
+                  type="password"
+                  autoComplete="new-password"
+                  isLarge={true}
+                />
+              )}
+            />
+          </div>
+          <div className={css.buttons}>
+            <button type="submit" className={css.button}>
+              {t("signUpPage.signUp")}
+            </button>
+            <GoogleButton text="googleButton.googleUpBtn" />
+
+            <FormFooter
+              text={t("signUpPage.textAlready")}
+              linkText={t("signUpPage.signIn")}
+              linkHref="/signin"
+            />
+          </div>
+        </form>
+      </div>
+    </FormProvider>
   );
 }

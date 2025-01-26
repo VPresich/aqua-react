@@ -6,14 +6,16 @@ import css from "./Input.module.css";
 
 function Input(
   {
+    label,
     name,
-    onChange,
     value,
     placeholder,
     type,
+    onChange,
     classInput = "",
     classLabel = "",
-    label,
+    isLarge = false,
+    autocomplete = "off",
   },
   ref
 ) {
@@ -32,7 +34,12 @@ function Input(
   };
 
   const inputType = type === "password" && showPassword ? "text" : type;
-  const inputClass = clsx(css.input, errors[name] && css.red, classInput);
+  const inputClass = clsx(
+    css.input,
+    errors[name] && css.red,
+    classInput,
+    isLarge && css.large
+  );
 
   return (
     <div className={css.wrapper}>
@@ -40,7 +47,7 @@ function Input(
         <label htmlFor={name} className={clsx(css.label, classLabel)}>
           {label}
         </label>
-      )}{" "}
+      )}
       <input
         ref={ref}
         id={name}
@@ -50,11 +57,12 @@ function Input(
         placeholder={placeholder}
         className={inputClass}
         type={inputType}
+        autoComplete={autocomplete}
       />
       {type === "password" && (
         <span
           onClick={handleTooglePassword}
-          className={css.eyeIconContainer}
+          className={css.eyeContainer}
           aria-label="Eye icon"
         >
           {showPassword ? (
@@ -71,8 +79,12 @@ function Input(
       {errors[name] && value && (
         <span
           onClick={handleClearInput}
-          className={clsx(css.icon, type === "password" && css.shift)}
-        ></span>
+          className={clsx(css.clearContainer, type === "password" && css.shift)}
+        >
+          <svg className={css.clearIcon}>
+            <use href={`${iconsPath}#icon-close`} />
+          </svg>
+        </span>
       )}
       {errors[name] && (
         <span className={clsx(css.message, css.error)}>
