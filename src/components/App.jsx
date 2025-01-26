@@ -1,5 +1,7 @@
 import { lazy } from "react";
+import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { SharedLayout } from "./SharedLayout/SharedLayout";
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
 const SignInPage = lazy(() => import("../pages/SignInPage/SignInPage"));
@@ -16,7 +18,23 @@ const ConfirmGoogleAuth = lazy(() =>
   import("../pages/ConfirmGoogleAuth/ConfirmGoogleAuth")
 );
 
+import { fetchCurrentUser } from "../redux/user/userOps";
+import { errNotify, successNotify } from "../helpers/notification";
+
 export default function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCurrentUser())
+      .unwrap()
+      .then(() => {
+        successNotify("Ok");
+      })
+      .catch((error) => {
+        errNotify(error.message);
+      });
+  }, [dispatch]);
+
   return (
     <div>
       <Routes>

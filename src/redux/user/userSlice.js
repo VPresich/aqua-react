@@ -241,6 +241,7 @@ const userSlice = createSlice({
       .addCase(getUsersCount.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
+        console.log();
         state.usersCount = action.payload.data.usersCount;
       })
       .addCase(getUsersCount.rejected, (state, action) => {
