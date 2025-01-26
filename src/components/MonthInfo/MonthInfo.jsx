@@ -22,7 +22,6 @@ const MonthInfo = () => {
   };
 
   useEffect(() => {
-    
     dispatch(getMonthWater(currentMonth))
       .unwrap()
       .then((data) => {
@@ -39,7 +38,7 @@ const MonthInfo = () => {
     setIsActive(!isActive);
   };
   return (
-    <div data-tour="step-calendar" className={css.monthInfoSection}>
+    <div className={css.monthInfoSection}>
       <div className={css.monthPaginationBox}>
         {isActive ? (
           <h3 className={css.monthTitle}>{t("monthInfo.mouth")}</h3>
@@ -48,11 +47,7 @@ const MonthInfo = () => {
         )}
         <div className={css.paginationWrapper}>
           <CalendarPagination onMonthChange={handleMonthChange} />
-          <button
-            data-tour="step-graphic"
-            className={css.iconStatistics}
-            onClick={handleToggle}
-          >
+          <button className={css.iconStatistics} onClick={handleToggle}>
             <svg width={20} height={20}>
               <use xlinkHref={`${sprite}#icon-pie-chart-statistics`} />
             </svg>

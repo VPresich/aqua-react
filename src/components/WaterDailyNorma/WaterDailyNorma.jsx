@@ -8,7 +8,7 @@ const WaterDailyNorma = () => {
   const { t } = useTranslation();
 
   return (
-    <div data-tour="step-norma" className={styles.dailyNormaContainer}>
+    <div className={styles.dailyNormaContainer}>
       <span className={styles.dailyNormaAmount}>
         {desiredVolume
           ? `${desiredVolume.toFixed(2)} ${t("waterMainInfo.l")}`

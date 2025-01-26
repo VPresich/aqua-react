@@ -4,7 +4,7 @@ import WaterProgressBar from "../WaterProgressBar/WaterProgressBar";
 import AddWaterButton from "../AddWaterButton/AddWaterButton";
 import WaterDailyNorma from "../WaterDailyNorma/WaterDailyNorma";
 import { selectWaterProgress } from "../../redux/water/selectors";
-import Logo from "../Logo/Logo";
+
 import bottleImage from "../../assets/images/bottle_for_water@1x.webp";
 import styles from "./WaterMainInfo.module.css";
 
@@ -25,8 +25,7 @@ const WaterMainInfo = () => {
   }, [progress, previousProgress]);
 
   return (
-    <div className={styles.mainContainer + " tour-start"}>
-      <Logo />
+    <div className={styles.mainContainer}>
       <WaterDailyNorma volume="1.5 L" label="My daily norma" />
 
       <div className={styles.bottleContainer}>

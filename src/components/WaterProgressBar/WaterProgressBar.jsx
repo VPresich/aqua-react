@@ -6,7 +6,7 @@ const WaterProgressBar = ({ progress }) => {
   const { t } = useTranslation();
 
   return (
-    <div data-tour="step-progress" className={styles.progressBarContainer}>
+    <div className={styles.progressBarContainer}>
       <div className={styles.progressBarTitle}>{t("waterMainInfo.today")}</div>
       <div className={styles.progressBarWrapper}>
         <div className={styles.progressBarTrack}>

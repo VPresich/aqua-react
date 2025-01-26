@@ -3,11 +3,7 @@ import css from "./Logo.module.css";
 
 const Logo = () => {
   const { t } = useTranslation();
-  return (
-    <p data-tour="step-home" className={css.logo}>
-      {t("logo.logo")}
-    </p>
-  );
+  return <p className={css.logo}>{t("logo.logo")}</p>;
 };
 
 export default Logo;

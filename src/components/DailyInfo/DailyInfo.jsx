@@ -19,7 +19,7 @@ const DailyInfo = () => {
       : "";
 
   return (
-    <div data-tour="step-info" className={css.container}>
+    <div className={css.container}>
       <div className={css.dayContainer}>
         <p className={css.day}>{displayDay}</p>
         <div>

@@ -41,7 +41,7 @@ const CalendarPagination = ({ onMonthChange }) => {
   };
 
   return (
-    <div data-tour="step-month" className={css.container}>
+    <div className={css.container}>
       <button
         className={css.buttonPrevious}
         type="button"
