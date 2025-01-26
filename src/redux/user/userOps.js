@@ -100,19 +100,22 @@ export const updateUser = createAsyncThunk(
         for (const [key, value] of Object.entries(data)) {
           formData.append(key, value);
         }
+        console.log("REQUEST", formData);
         response = await axiosInstance.patch("/users/current", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
       } else {
-        response = await axiosInstance.patch("/auth/update-user", data, {
+        console.log("REQUEST", data);
+        response = await axiosInstance.patch("/users/current", data, {
           headers: {
             "Content-Type": "application/json",
           },
         });
       }
-      return response.data.data;
+      console.log("RESPONSE", response.data);
+      return response.data;
     } catch (error) {
       console.error(error);
       return thunkAPI.rejectWithValue(error.message);

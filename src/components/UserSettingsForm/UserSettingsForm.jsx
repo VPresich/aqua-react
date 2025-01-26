@@ -8,22 +8,15 @@ import UserImageElem from "../UserImageElem/UserImageElem";
 import Input from "../Input/Input";
 import RadioButtonsGroup from "../RadioButtonsGroup/RadioButtonsGroup";
 import UploadFileButton from "../UploadFileButton/UploadFileButton";
-import { feedbackSchema } from "../../helpers/userSettingsFormSchema";
+import { userSettingsFormSchema } from "../../helpers/formsValidation/userSettingsFormSchema";
 import { selectUser } from "../../redux/user/selectors";
 import iconsPath from "../../assets/icons/sprite.svg";
 import css from "./UserSettingsForm.module.css";
 import { useTranslation } from "react-i18next";
 
 const UserSettingsForm = ({ handleUserSave }) => {
-  const {
-    gender,
-    name,
-    email,
-    weight,
-    activityTime,
-    desiredVolume,
-    avatarURL,
-  } = useSelector(selectUser);
+  const { gender, name, email, weight, sportTime, waterNorm, avatarURL } =
+    useSelector(selectUser);
   const { t } = useTranslation();
 
   const options = [
@@ -35,13 +28,13 @@ const UserSettingsForm = ({ handleUserSave }) => {
   const [avatar, setAvatar] = useState(avatarURL);
 
   const methods = useForm({
-    resolver: yupResolver(feedbackSchema),
-    defaultValues: feedbackSchema.cast({
+    resolver: yupResolver(userSettingsFormSchema),
+    defaultValues: userSettingsFormSchema.cast({
       name: name || email || "",
       email: email || "",
       weight: weight || 0,
-      desiredVolume: desiredVolume || 50,
-      activityTime: activityTime || 0,
+      waterNorm: waterNorm || 1.5,
+      sportTime: sportTime || 0,
       gender: gender || "female",
     }),
     shouldUnregister: true,
@@ -51,38 +44,35 @@ const UserSettingsForm = ({ handleUserSave }) => {
 
   const genderValue = watch("gender");
   const weightValue = watch("weight");
-  const activeTimeValue = watch("activityTime");
+  const sportTimeValue = watch("sportTime");
   const [calculatedWaterNorm, setCalculatedWaterNorm] = useState(0);
 
   useEffect(() => {
     const weight = parseFloat(weightValue) || 0;
-    const activeTime = parseFloat(activeTimeValue) || 0;
+    const sportTime = parseFloat(sportTimeValue) || 0;
 
-    if (!isNaN(weight) && !isNaN(activeTime)) {
+    if (!isNaN(weight) && !isNaN(sportTime)) {
       const waterNorm =
         genderValue === "female"
-          ? weight * 0.03 + activeTime * 0.4
-          : weight * 0.04 + activeTime * 0.6;
+          ? weight * 0.03 + sportTime * 0.4
+          : weight * 0.04 + sportTime * 0.6;
       setCalculatedWaterNorm(parseFloat(waterNorm.toFixed(4)));
     } else {
       setCalculatedWaterNorm(0);
     }
-  }, [genderValue, weightValue, activeTimeValue]);
+  }, [genderValue, weightValue, sportTimeValue]);
 
   const onSubmit = async (values) => {
     if (avatarFile) {
       values.avatar = avatarFile;
     }
+    console.log("User", values);
     handleUserSave && handleUserSave(values);
   };
 
   const handleEditAvatar = (newAvatarUrl, avatarFile) => {
     setAvatarFile(avatarFile);
     setAvatar(newAvatarUrl);
-  };
-
-  const removeLeadingZeros = (value) => {
-    return value ? Number(value) : 0;
   };
 
   return (
@@ -193,29 +183,21 @@ const UserSettingsForm = ({ handleUserSave }) => {
                 render={({ field }) => (
                   <Input
                     {...field}
-                    value={removeLeadingZeros(field.value)}
                     classLabel={css.thinkLabel}
                     label={t("modals.UserSettingsForm.infoUser")}
                     type="text"
-                    onChange={(e) =>
-                      field.onChange(removeLeadingZeros(e.target.value))
-                    }
                   />
                 )}
               />
               <Controller
-                name="activityTime"
+                name="sportTime"
                 control={methods.control}
                 render={({ field }) => (
                   <Input
                     {...field}
-                    value={removeLeadingZeros(field.value)}
                     classLabel={css.thinkLabel}
                     label={t("modals.UserSettingsForm.TheTimeSportsLabel")}
                     type="text"
-                    onChange={(e) =>
-                      field.onChange(removeLeadingZeros(e.target.value))
-                    }
                   />
                 )}
               />
@@ -234,38 +216,14 @@ const UserSettingsForm = ({ handleUserSave }) => {
               </span>
 
               <Controller
-                name="desiredVolume"
+                name="waterNorm"
                 control={methods.control}
                 render={({ field }) => (
                   <Input
                     {...field}
-                    value={field.value || ""} // Забезпечуємо, що значення не є undefined
+                    value={field.value || ""}
                     label={t("modals.UserSettingsForm.writeDownLabel")}
                     type="text"
-                    onChange={(e) => {
-                      let value = e.target.value;
-
-                      // Замінюємо кому на крапку для уніфікованого формату
-                      value = value.replace(/,/g, ".");
-
-                      // Дозволяємо лише цифри, одну крапку, ігноруючи зайві символи
-                      value = value.replace(/[^0-9.]/g, "");
-
-                      // Забезпечуємо, що крапка з'являється тільки одна
-                      if ((value.match(/\./g) || []).length > 1) {
-                        value = value.slice(0, value.lastIndexOf("."));
-                      }
-
-                      // Видаляємо провідні нулі тільки перед цілим числом
-                      value = value.replace(/^0+(?=\d)/, "");
-
-                      // Якщо поле порожнє, встановлюємо значення 0
-                      if (value.trim() === "") {
-                        value = "0";
-                      }
-
-                      field.onChange(value);
-                    }}
                   />
                 )}
               />

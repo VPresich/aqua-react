@@ -22,6 +22,11 @@ import { useTour } from "@reactour/tour";
 import { useTranslation } from "react-i18next";
 import css from "./UserBar.module.css";
 
+const truncateName = (name) => {
+  if (!name) return "";
+  return name?.length > 10 ? `${name.slice(0, 10)}...` : name;
+};
+
 export default function UserBar() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -91,10 +96,6 @@ export default function UserBar() {
 
   if (!isLoggedIn) return null;
 
-  const truncateName = (name) => {
-    return name.length > 10 ? `${name.slice(0, 10)}...` : name;
-  };
-
   const togglePopover = (event) => {
     event.stopPropagation();
     setShowPopover((prev) => !prev);
@@ -119,6 +120,8 @@ export default function UserBar() {
 
   const handleUserForm = (data) => {
     document.body.style.overflow = "auto";
+
+    console.log("Data", data);
     dispatch(updateUser(data))
       .unwrap()
       .then(() => {

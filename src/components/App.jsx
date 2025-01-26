@@ -17,6 +17,8 @@ const ResetPasswordPage = lazy(() =>
 const ConfirmGoogleAuth = lazy(() =>
   import("../pages/ConfirmGoogleAuth/ConfirmGoogleAuth")
 );
+import { RestrictedRoute } from "./RestrictedRoute";
+import { PrivateRoute } from "./PrivateRoute";
 
 import { fetchCurrentUser } from "../redux/user/userOps";
 import { errNotify, successNotify } from "../helpers/notification";
@@ -36,15 +38,72 @@ export default function App() {
   }, [dispatch]);
 
   return (
+    // <div>
+    //   <Routes>
+    //     <Route path="/" element={<SharedLayout />}>
+    //       <Route index element={<HomePage />} />
+    //       <Route path="/signup" element={<SignUpPage />} />
+    //       <Route path="/verify/:verifyToken" element={<EmailVerifyPage />} />
+    //       <Route path="/signin" element={<SignInPage />} />
+    //       <Route path="/tracker" element={<TrackerPage />} />
+    //       <Route path="/reset-pwd" element={<ResetPasswordPage />} />
+    //       <Route path="/confirm-google-auth" element={<ConfirmGoogleAuth />} />
+    //       <Route path="*" element={<NotFoundPage />} />
+    //     </Route>
+    //   </Routes>
+    // </div>
+
     <div>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/verify/:verifyToken" element={<EmailVerifyPage />} />
-          <Route path="/signin" element={<SignInPage />} />
-          <Route path="/tracker" element={<TrackerPage />} />
-          <Route path="/reset-pwd" element={<ResetPasswordPage />} />
+          <Route
+            index
+            element={
+              <RestrictedRoute redirectTo="/tracker" component={<HomePage />} />
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <RestrictedRoute
+                redirectTo="/tracker"
+                component={<SignUpPage />}
+              />
+            }
+          />
+          <Route
+            path="/verify/:verifyToken"
+            element={
+              <RestrictedRoute
+                redirectTo="/signin"
+                component={<EmailVerifyPage />}
+              />
+            }
+          />
+          <Route
+            path="/signin"
+            element={
+              <RestrictedRoute
+                redirectTo="/tracker"
+                component={<SignInPage />}
+              />
+            }
+          />
+          <Route
+            path="/tracker"
+            element={
+              <PrivateRoute redirectTo="/signin" component={<TrackerPage />} />
+            }
+          />
+          <Route
+            path="/auth/reset-password"
+            element={
+              <RestrictedRoute
+                redirectTo="/tracker"
+                component={<ResetPasswordPage />}
+              />
+            }
+          />
           <Route path="/confirm-google-auth" element={<ConfirmGoogleAuth />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
