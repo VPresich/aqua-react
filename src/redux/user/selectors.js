@@ -9,4 +9,4 @@ export const selectUserLoading = (state) => state.auth.isLoading;
 export const selectError = (state) => state.auth.error;
 export const selectDesiredVolume = (state) => state.auth.user.waterNorm;
 export const selectIsResendEmail = (state) => state.auth.isResendVerify;
-export const selectUserCount = (state) => state.auth.usersCount;
+export const selectUsersCount = (state) => state.auth.usersCount;

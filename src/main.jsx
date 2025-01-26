@@ -8,6 +8,7 @@ import { persistor, store } from "./redux/store.js";
 
 import Loader from "./components/Loader/Loader.jsx";
 import "./assets/css/index.css";
+import "./i18n/config.js";
 import App from "./components/App.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
