@@ -1,7 +1,7 @@
 .header {
   width: 100%;
   background-color: transparent;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   z-index: 10;
@@ -10,15 +10,17 @@
 .container {
   max-width: 375px;
   margin: 0 auto;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-top: 24px;
+  padding-left: 32px;
+  padding-right: 32px;
 }
 
 @media (min-width: 768px) {
   .container {
     max-width: 768px;
-    padding-left: 32px;
-    padding-right: 32px;
+    padding-top: 64px;
+    padding-left: 64px;
+    padding-right: 64px;
   }
 }
 
