@@ -26,7 +26,7 @@ export default function App() {
           <Route path="/verify/:verifyToken" element={<EmailVerifyPage />} />
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/tracker" element={<TrackerPage />} />
-          <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/reset-pwd" element={<ResetPasswordPage />} />
           <Route path="/confirm-google-auth" element={<ConfirmGoogleAuth />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
