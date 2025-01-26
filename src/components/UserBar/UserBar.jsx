@@ -4,7 +4,7 @@ import clsx from "clsx";
 import {
   selectIsLoggedIn,
   selectUserName,
-  selectUserAvatar,
+  selectUserAvatarURL,
 } from "../../redux/user/selectors";
 import { errNotify, successNotify } from "../../helpers/notification";
 import {
@@ -31,7 +31,7 @@ export default function UserBar() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const userName = useSelector(selectUserName);
-  const userAvatar = useSelector(selectUserAvatar);
+  const userAvatarURL = useSelector(selectUserAvatarURL);
   const { t } = useTranslation();
 
   const { currentStep, steps, setCurrentStep } = useTour();
@@ -163,9 +163,9 @@ export default function UserBar() {
       >
         <span className={css.contentBtn}>
           <span className={css.userName}>{truncateName(userName)}</span>
-          {userAvatar ? (
+          {userAvatarURL ? (
             <UserImageElem
-              imgUrl={userAvatar}
+              imgUrl={userAvatarURL}
               altText={userName}
               isSmall={true}
             />

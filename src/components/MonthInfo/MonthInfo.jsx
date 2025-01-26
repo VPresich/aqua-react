@@ -20,16 +20,16 @@ const MonthInfo = () => {
     dispatch(setCalendarMonth(new Date(newDate).toISOString()));
   };
 
-  useEffect(() => {
-    dispatch(getMonthWater(currentMonth))
-      .unwrap()
-      .then(() => {
-        successNotify(t("toast.fetchMonthDataSuccess"));
-      })
-      .catch((error) => {
-        errNotify(t("toast.fetchMonthDataError"), { message: error.message });
-      });
-  }, [dispatch, currentMonth, t]);
+  // useEffect(() => {
+  //   dispatch(getMonthWater(currentMonth))
+  //     .unwrap()
+  //     .then(() => {
+  //       successNotify(t("toast.fetchMonthDataSuccess"));
+  //     })
+  //     .catch((error) => {
+  //       errNotify(t("toast.fetchMonthDataError"), { message: error.message });
+  //     });
+  // }, [dispatch, currentMonth, t]);
 
   const [isActive, setIsActive] = useState(true);
   const handleToggle = () => {

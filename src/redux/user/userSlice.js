@@ -19,7 +19,7 @@ const initialState = {
     userId: null,
     name: null,
     email: null,
-    avatar: null,
+    avatarURL: null,
     gender: null,
     weight: null,
     sportTime: null,

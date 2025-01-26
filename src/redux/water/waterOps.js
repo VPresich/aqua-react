@@ -41,7 +41,7 @@ export const getDayWater = createAsyncThunk(
   "water/getDayWaterLogs",
   async (date, thunkAPI) => {
     try {
-      const response = await axiosInstance.get("/water/per-day", {
+      const response = await axiosInstance.get("/water/day", {
         params: { date },
       });
       return response.data;
@@ -55,7 +55,7 @@ export const getMonthWater = createAsyncThunk(
   "water/getMonthWaterLogs",
   async (date, thunkAPI) => {
     try {
-      const response = await axiosInstance.get("/water/per-month", {
+      const response = await axiosInstance.get("/water/month", {
         params: { date },
       });
       return response.data;
