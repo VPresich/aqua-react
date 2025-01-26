@@ -12,7 +12,7 @@ export default function SignUpPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSinup = async (values) => {
+  const handleSignup = async (values) => {
     try {
       await dispatch(signUp(values)).unwrap();
       successNotify("Registration is successful!");
@@ -36,7 +36,7 @@ export default function SignUpPage() {
       <DocumentTitle>SignUp Page</DocumentTitle>
       <Page>
         <div className={css.container}>
-          <SignupForm handleSignup={handleSinup} />
+          <SignupForm handleSignup={handleSignup} />
           <AdvantagesSection />
         </div>
       </Page>

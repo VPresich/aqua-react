@@ -1,4 +1,4 @@
-.googleButton {
+.button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,15 +10,19 @@
   line-height: 18px;
   letter-spacing: -0.01em;
   color: var(--color-darkblue);
-  background-color: var(--color-lightgreen);
-  transition: background-color 0.5s;
+  border: 1.5px solid var(--color-darkblue);
+  background-color: transparent;
+  transition: background-color var(--animation), color var(--animation),
+    border-color var(--animation);
 }
 
-.googleButton:hover {
-  background-color: var(--color-lightgreenhover);
+.button:hover {
+  background-color: transparent;
+  color: var(--color-lightgreenhover);
+  border-color: var(--color-lightgreenhover);
 }
 
-.googleIcon {
+.icon {
   font-size: 24px;
 }
 
@@ -27,7 +31,7 @@
 }
 
 @media (min-width: 768px) {
-  .googleButton {
+  .button {
     padding: 18px;
     font-size: 16px;
     line-height: 24px;

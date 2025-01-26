@@ -36,7 +36,7 @@ export default function SignupForm({ handleSignup }) {
     <FormProvider {...methods}>
       <div className={css.container}>
         <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
-          <h2 className={CSSFontFaceRule.title}>Sign Up</h2>
+          <h2 className={CSSFontFaceRule.title}> {t("signUpPage.signUp")}</h2>
 
           <div className={css.inputs}>
             <Controller
@@ -86,7 +86,7 @@ export default function SignupForm({ handleSignup }) {
             <button type="submit" className={css.button}>
               {t("signUpPage.signUp")}
             </button>
-            <GoogleButton text="googleButton.googleUpBtn" />
+            <GoogleButton text={t("googleButton.googleUpBtn")} />
 
             <FormFooter
               text={t("signUpPage.textAlready")}

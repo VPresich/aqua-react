@@ -14,7 +14,6 @@ export default function GoogleButton({ text = "googleButton.googleInBtn" }) {
     dispatch(fetchOAuthUrl())
       .unwrap()
       .then((response) => {
-        // console.log("OAuth URL fetched successfully:", response.data.url);
         if (response.data.url) window.location.assign(response.data.url);
       })
       .catch((error) => {
@@ -24,13 +23,9 @@ export default function GoogleButton({ text = "googleButton.googleInBtn" }) {
 
   return (
     <React.Fragment>
-      <button
-        type="button"
-        onClick={googleLoginClick}
-        className={s.googleButton}
-      >
-        <FcGoogle className={s.googleIcon} />
-        <span className={s.googleText}>{t(text)}</span>
+      <button type="button" onClick={googleLoginClick} className={s.button}>
+        <FcGoogle className={s.icon} />
+        <span className={s.text}>{t(text)}</span>
       </button>
     </React.Fragment>
   );
