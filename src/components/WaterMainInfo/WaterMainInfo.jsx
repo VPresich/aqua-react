@@ -25,10 +25,9 @@ const WaterMainInfo = () => {
   }, [progress, previousProgress]);
 
   return (
-
     <div className={styles.mainContainer + " tour-start"}>
       <Logo />
-      <WaterDailyNorma amount="1.5 L" label="My daily norma" />
+      <WaterDailyNorma volume="1.5 L" label="My daily norma" />
 
       <div className={styles.bottleContainer}>
         <img

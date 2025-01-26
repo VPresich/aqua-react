@@ -25,8 +25,8 @@ const CreateWaterBtn = () => {
     openModal();
   };
 
-  const handleAddWater = (amount) => {
-    dispatch(addWater({ amount }));
+  const handleAddWater = (volume) => {
+    dispatch(addWater({ volume }));
     closeModal();
   };
 

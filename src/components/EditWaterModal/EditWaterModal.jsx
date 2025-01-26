@@ -41,7 +41,7 @@ export default function EditWaterModal({ onClose, waterCard }) {
           onSave={onSubmitForm}
           initialData={{
             time: extractTimeFromDateString(waterCard.date),
-            amount: waterCard.amount,
+            volume: waterCard.volume,
           }}
         />
       </Modal>

@@ -6,8 +6,8 @@ import DeleteWaterModal from "../DeleteWaterModal/DeleteWaterModal";
 import css from "./WaterCard.module.css";
 import { useTranslation } from "react-i18next";
 
-export default function WaterCard({waterCard}) {
-  const { _id, amount, date } = waterCard || {};
+export default function WaterCard({ waterCard }) {
+  const { _id, volume, date } = waterCard || {};
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalForDelete, setModalForDelete] = useState(false);
   const { t } = useTranslation();
@@ -43,7 +43,7 @@ export default function WaterCard({waterCard}) {
 
       <div className={css.cardInfo}>
         <span className={css.volume}>
-          {amount || 0} {t("dailyInfo.ml")}
+          {volume || 0} {t("dailyInfo.ml")}
         </span>
         <span className={css.time}>{timeString}</span>
       </div>
