@@ -10,7 +10,7 @@
 }
 
 @media only screen and (min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .advantagesSection {
+  .section {
     background-image: url("../../assets/images/hero_mob@2x.webp");
   }
 }
@@ -25,18 +25,18 @@
   border-radius: 30px;
 }
 
-.advantagesGroupHabits {
+.group {
   max-width: 168px;
   margin-left: 138px;
 }
 
-.advantagesList {
+.list {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
 }
 
-.advantagesHabit {
+.habit {
   padding: 9px 12px;
   border-radius: 30px;
   display: flex;
@@ -52,7 +52,7 @@
   height: 8px;
 }
 
-.advantagesHabit {
+.habit {
   padding: 9px 12px;
   border-radius: 30px;
   display: flex;
@@ -61,7 +61,7 @@
   gap: 4px;
 }
 
-.advantagesHabit > p {
+.habit > p {
   font-weight: 700;
   font-size: 8px;
   line-height: 100%;
@@ -69,17 +69,17 @@
   text-align: center;
 }
 
-.advantagesHabit:nth-child(1) {
+.habit:nth-child(1) {
   background: var(--color-darkblue);
   color: var(--color-white);
 }
 
-.advantagesHabit:nth-child(2) {
+.habit:nth-child(2) {
   background: var(--color-lightgreen);
   color: var(--color-darkblue);
 }
 
-.advantagesHabit:nth-child(3) {
+.habit:nth-child(3) {
   background: var(--color-white);
   color: var(--color-darkblue);
 }
@@ -94,7 +94,7 @@
   @media (-webkit-min-device-pixel-ratio: 2),
     (min-resolution: 192dpi),
     (min-resolution: 2dppx) {
-    .advantagesSection {
+    .section {
       background-image: url("../../assets/images/hero_tab@2x.webp");
     }
   }
@@ -106,18 +106,20 @@
     gap: 6px;
   }
 
-  .advantagesGroupHabits {
+  .group {
     max-width: 242px;
     margin-left: 398px;
   }
 
-  .advantagesList {
+  .list {
     gap: 10px;
   }
-  .advantagesHabit {
+
+  .habit {
     padding: 11px 16px;
   }
-  .advantagesHabit > p {
+
+  .habit > p {
     font-size: 12px;
   }
 }
@@ -133,12 +135,12 @@
   @media (-webkit-min-device-pixel-ratio: 2),
     (min-resolution: 192dpi),
     (min-resolution: 2dppx) {
-    .advantagesSection {
+    .section {
       background-image: url("../../assets/images/hero_desk@2x.webp");
     }
   }
 
-  .advantagesGroupHabits {
+  .group {
     margin-left: 366px;
   }
 }
