@@ -17,8 +17,7 @@ const WaterCardList = () => {
     console.log("waterDate", waterDate);
     dispatch(getDayWater(waterDate))
       .unwrap()
-      .then((data) => {
-        console.log("DAYLIST", data);
+      .then(() => {
         successNotify(t("toast.fetchUserDataSuccess"));
       })
       .catch((error) => {

@@ -13,6 +13,7 @@ import css from "./MonthInfo.module.css";
 
 const MonthInfo = () => {
   const currentMonth = useSelector(selectCalendarMonth);
+  console.log("Current", currentMonth);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -20,16 +21,18 @@ const MonthInfo = () => {
     dispatch(setCalendarMonth(new Date(newDate).toISOString()));
   };
 
-  // useEffect(() => {
-  //   dispatch(getMonthWater(currentMonth))
-  //     .unwrap()
-  //     .then(() => {
-  //       successNotify(t("toast.fetchMonthDataSuccess"));
-  //     })
-  //     .catch((error) => {
-  //       errNotify(t("toast.fetchMonthDataError"), { message: error.message });
-  //     });
-  // }, [dispatch, currentMonth, t]);
+  useEffect(() => {
+    
+    dispatch(getMonthWater(currentMonth))
+      .unwrap()
+      .then((data) => {
+        console.log("dataMonth", data);
+        successNotify(t("toast.fetchMonthDataSuccess"));
+      })
+      .catch((error) => {
+        errNotify(t("toast.fetchMonthDataError"), { message: error.message });
+      });
+  }, [dispatch, currentMonth, t]);
 
   const [isActive, setIsActive] = useState(true);
   const handleToggle = () => {
