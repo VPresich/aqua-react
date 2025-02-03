@@ -7,7 +7,7 @@ import {
   fetchCurrentUser,
   updateUser,
   sendResetEmail,
-  validateResetToken,
+  // validateResetToken,
   resetPassword,
   fetchOAuthUrl,
   googleLogin,
@@ -164,22 +164,23 @@ const userSlice = createSlice({
           state.error = "An error occurred during reset user email.";
         }
       })
-      .addCase(validateResetToken.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(validateResetToken.fulfilled, (state) => {
-        state.loading = false;
-        state.error = null;
-      })
-      .addCase(validateResetToken.rejected, (state, action) => {
-        state.loading = false;
-        if (typeof action.payload === "string") {
-          state.error = action.payload;
-        } else {
-          state.error = "An error occurred during refresh token.";
-        }
-      })
+
+      // .addCase(validateResetToken.pending, (state) => {
+      //   state.loading = true;
+      //   state.error = null;
+      // })
+      // .addCase(validateResetToken.fulfilled, (state) => {
+      //   state.loading = false;
+      //   state.error = null;
+      // })
+      // .addCase(validateResetToken.rejected, (state, action) => {
+      //   state.loading = false;
+      //   if (typeof action.payload === "string") {
+      //     state.error = action.payload;
+      //   } else {
+      //     state.error = "An error occurred during refresh token.";
+      //   }
+      // })
 
       .addCase(resetPassword.pending, (state) => {
         state.loading = true;

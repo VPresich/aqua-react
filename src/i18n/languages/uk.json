@@ -35,7 +35,7 @@
     "dontAccount": "Немає аккаунту? ",
     "forgotPassword": "Забули свій пароль? ",
     "signUp": "Зареєструватися",
-    "renew": "Відновити"
+    "reset": "Відновити"
   },
   "validation": {
     "emailValid": "Електронна адреса має бути у форматі: example@domain.com",
@@ -72,7 +72,9 @@
     "email": "Електронна пошта",
     "emailPlaceholder": "Введіть свою електронну адресу",
     "emailSpanError": "Невалідна електронна пошта",
-    "button": "Відправити скидання"
+    "button": "Відправити скидання",
+    "textRememberOldPassword": "Згадали старий пароль?",
+    "signIn": "Увійти"
   },
   "resetPage": {
     "title": "Скинути пароль",
@@ -84,7 +86,11 @@
     "repeatPasswordPlaceholder": "Підтвердіть свій пароль",
     "repeatPasswordpanError": "Обов'язкове",
     "repeatPasswordpanErrorTwo": "Паролі мають збігатися",
-    "button": "Зберегти новий пароль"
+    "button": "Зберегти новий пароль",
+    "textRememberOldPassword": "Згадали старий пароль?",
+    "successMessage": "Пароль успішно змінено.",
+    "textGotoSingin": "Продовжити aутентифікацію?",
+    "signIn": "Увійти"
   },
   "waterMainInfo": {
     "l": "л",

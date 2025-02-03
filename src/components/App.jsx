@@ -38,21 +38,6 @@ export default function App() {
   }, [dispatch]);
 
   return (
-    // <div>
-    //   <Routes>
-    //     <Route path="/" element={<SharedLayout />}>
-    //       <Route index element={<HomePage />} />
-    //       <Route path="/signup" element={<SignUpPage />} />
-    //       <Route path="/verify/:verifyToken" element={<EmailVerifyPage />} />
-    //       <Route path="/signin" element={<SignInPage />} />
-    //       <Route path="/tracker" element={<TrackerPage />} />
-    //       <Route path="/reset-pwd" element={<ResetPasswordPage />} />
-    //       <Route path="/confirm-google-auth" element={<ConfirmGoogleAuth />} />
-    //       <Route path="*" element={<NotFoundPage />} />
-    //     </Route>
-    //   </Routes>
-    // </div>
-
     <div>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
@@ -72,15 +57,6 @@ export default function App() {
             }
           />
           <Route
-            path="/verify/:verifyToken"
-            element={
-              <RestrictedRoute
-                redirectTo="/signin"
-                component={<EmailVerifyPage />}
-              />
-            }
-          />
-          <Route
             path="/signin"
             element={
               <RestrictedRoute
@@ -90,18 +66,27 @@ export default function App() {
             }
           />
           <Route
-            path="/tracker"
-            element={
-              <PrivateRoute redirectTo="/signin" component={<TrackerPage />} />
-            }
-          />
-          <Route
-            path="/auth/reset-password"
+            path="/password/reset/:token"
             element={
               <RestrictedRoute
                 redirectTo="/tracker"
                 component={<ResetPasswordPage />}
               />
+            }
+          />
+          <Route
+            path="/password/reset"
+            element={
+              <RestrictedRoute
+                redirectTo="/signin"
+                component={<EmailVerifyPage />}
+              />
+            }
+          />
+          <Route
+            path="/tracker"
+            element={
+              <PrivateRoute redirectTo="/signin" component={<TrackerPage />} />
             }
           />
           <Route path="/confirm-google-auth" element={<ConfirmGoogleAuth />} />

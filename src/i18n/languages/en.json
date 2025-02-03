@@ -35,7 +35,7 @@
     "dontAccount": "Don’t have an account?",
     "forgotPassword": "Forgot your password?",
     "signUp": "Sign Up",
-    "renew": "Renew"
+    "reset": "Reset"
   },
   "googleButton": {
     "googleInBtn": "Sign in with Google",
@@ -76,7 +76,9 @@
     "email": "Enter your email",
     "emailPlaceholder": "Enter your email",
     "emailSpanError": "Invalid email format",
-    "button": "Send Reset Email"
+    "button": "Send Reset Email",
+    "textRememberOldPassword": "Remember the old password?",
+    "signIn": "Sign In"
   },
   "resetPage": {
     "title": "Reset your password",
@@ -88,7 +90,11 @@
     "repeatPasswordPlaceholder": "Confirm your password",
     "repeatPasswordpanError": "Required",
     "repeatPasswordpanErrorTwo": "Passwords must match",
-    "button": "Save new password"
+    "button": "Save new password",
+    "textRememberOldPassword": "Remember the old password?",
+    "successMessage": "Password was successfully changed!",
+    "textGotoSingin": "Continue authentication?",
+    "signIn": "Sign In"
   },
   "waterMainInfo": {
     "l": "L",

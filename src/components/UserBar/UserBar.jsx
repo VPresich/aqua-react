@@ -80,6 +80,8 @@ export default function UserBar() {
   };
 
   const handleUserForm = (data) => {
+    console.log("data", data);
+
     dispatch(updateUser(data))
       .unwrap()
       .then(() => {

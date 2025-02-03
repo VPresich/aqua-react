@@ -1,105 +1,104 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useForm, FormProvider, Controller } from "react-hook-form";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import toast from "react-hot-toast";
-import { resetPassword } from "../../redux/user/userOps";
-import PasswordField from "../PasswordField/PasswordField";
-import styles from "./ResetPasswordForm.module.css";
+import Input from "../Input/Input";
+import FormFooter from "../FormFooter/FormFooter";
+import { resetPasswordFormSchema } from "../../helpers/formsValidation/resetPasswordFormSchema,js";
 import { useTranslation } from "react-i18next";
-
-const validationSchema = (t) =>
-  Yup.object().shape({
-    password: Yup.string()
-      .min(8, t("signInPage.passwordSpanError"))
-      .max(50, t("validation.passwordLong"))
-      .required(t("validation.passwordRequired")),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], t("validation.passwordMatch"))
-      .required(t("validation.passwordRepeat")),
-  });
+import { errNotify, successNotify } from "../../helpers/notification";
+import { useDispatch } from "react-redux";
+import { resetPassword } from "../../redux/user/userOps.js";
+import css from "./ResetPasswordForm.module.css";
 
 export default function ResetPasswordForm() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [isPwdChanged, setIsPwdChanged] = useState(false);
   const { t } = useTranslation();
-  const [serverError, setServerError] = useState("");
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-    reset,
-  } = useForm({
-    resolver: yupResolver(validationSchema(t)),
-    mode: "onTouched",
+  const dispatch = useDispatch();
+  const { token } = useParams();
+  const methods = useForm({
+    resolver: yupResolver(resetPasswordFormSchema(t)),
+    defaultValues: {
+      password: "",
+      confirmPassword: "",
+    },
   });
 
+  const { handleSubmit, reset } = methods;
+
   const onSubmit = async (data) => {
-    try {
-      const queryParams = new URLSearchParams(location.search);
-      const resetTokenFromURL = queryParams.get("token");
-
-      await dispatch(
-        resetPassword({
-          password: data.password,
-          resetToken: resetTokenFromURL,
-        })
-      ).unwrap();
-
-      reset();
-      setServerError("");
-      toast.success("Password reset successful.");
-      navigate("/signin");
-    } catch (error) {
-      setServerError(
-        error?.message || "Failed to reset password. Please try again."
-      );
-      toast.error("Failed to reset password. Please try again.");
-    }
+    dispatch(
+      resetPassword({
+        password: data.password,
+        token,
+      })
+    )
+      .unwrap()
+      .then(() => {
+        reset();
+        successNotify("Password reset successful.");
+        setIsPwdChanged(true);
+      })
+      .catch(() => {
+        errNotify("Failed password changed");
+      });
   };
 
-  useEffect(() => {
-    if (errors.password) {
-      toast.error(errors.password.message);
-    } else if (errors.confirmPassword) {
-      toast.error(errors.confirmPassword.message);
-    }
-  }, [errors]);
-
   return (
-    <div className={styles.resetPasswordContainer}>
-      <form
-        className={styles.form}
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-      >
-        <h2 className={styles.resetPasswordTitle}>
-          {t("resetPage.title")} <br />
-          <span className={styles.subTitle}>{t("resetPage.create")}</span>
-        </h2>
-        <PasswordField
-          id="password"
-          label={t("resetPage.password")}
-          placeholder={t("resetPage.passwordPlaceholder")}
-          error={errors.password?.message}
-          register={register("password")}
-        />
-        <PasswordField
-          id="confirmPassword"
-          label={t("resetPage.repeatPassword")}
-          placeholder={t("resetPage.repeatPasswordPlaceholder")}
-          error={errors.confirmPassword?.message}
-          register={register("confirmPassword")}
-        />
-        {serverError && <p className={styles.error}>{serverError}</p>}
-        <button type="submit" className={styles.button} disabled={!isValid}>
-          {t("resetPage.button")}
-        </button>
-      </form>
-    </div>
+    <FormProvider {...methods}>
+      <div className={css.container}>
+        <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
+          <h2 className={css.title}>{t("resetPage.title")}</h2>
+          {isPwdChanged ? (
+            <h2 className={css.subTitle}>{t("resetPage.successMessage")}</h2>
+          ) : (
+            <>
+              <Controller
+                name="password"
+                control={methods.control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    label={t("resetPage.password")}
+                    placeholder={t("resetPage.passwordPlaceholder")}
+                    type="password"
+                    autoComplete="new-password"
+                    isLarge
+                  />
+                )}
+              />
+              <Controller
+                name="confirmPassword"
+                control={methods.control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    label={t("resetPage.repeatPassword")}
+                    placeholder={t("resetPage.repeatPasswordPlaceholder")}
+                    type="password"
+                    autoComplete="new-password"
+                    isLarge
+                  />
+                )}
+              />
+              <div className={css.buttons}>
+                <button type="submit" className={css.button}>
+                  {t("resetPage.button")}
+                </button>
+              </div>
+            </>
+          )}
+          <FormFooter
+            text={
+              isPwdChanged
+                ? t("resetPage.textGotoSingin")
+                : t("resetPage.textRememberOldPassword")
+            }
+            linkText={t("resetPage.signIn")}
+            linkHref="/signin"
+          />
+        </form>
+      </div>
+    </FormProvider>
   );
 }

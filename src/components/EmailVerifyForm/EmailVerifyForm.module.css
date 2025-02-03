@@ -1,65 +1,128 @@
-.EmailVerifyContainer {
-    position: relative;
-    background-color: var(--color-lightgray);
-    width: 100%;
-    height: 780px;
-    padding: 216px 16px;
-    border-radius: 30px;
-}
-
-.EmailVerifyTitle {
-    font-size: 32px;
-    color: var(--color-darkblue);
-    margin-bottom: 16px;
+.container {
+  background-color: var(--color-lightgray);
+  height: 780px;
+  width: 100%;
+  height: 100%;
+  padding: 140px 16px;
+  border-radius: 30px;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    border-radius: 30px;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.title {
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: var(--color-darkblue);
+}
+
+.subTitle {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 125%;
+  letter-spacing: -0.01em;
+  color: var(--color-darkblue);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.01em;
+  color: var(--color-darkblue);
+}
+
+.email {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.01em;
+  color: var(--color-lightgreenhover);
 }
 
 .button {
-    padding: 16px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 18px;
-    letter-spacing: -0.01em;
-    color: var(--color-darkblue);
-    background-color: var(--color-lightgreen);
-    margin-top: 16px;
+  width: 100%;
+  height: 50px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: -0.01em;
+  color: var(--color-darkblue);
+  background-color: var(--color-lightgreen);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.5s;
 }
 
 .button:hover {
-    background-color: var(--color-lightgreenhover);
+  background-color: var(--color-lightgreenhover);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 @media (min-width: 768px) {
-    .EmailVerifyContainer {
-        width: 704px;
-        height: 960px;
-        padding: 281px 134px;
-        /* margin-top: 32px; */
-    }
+  .container {
+    width: 704px;
+    padding-top: 200px;
+    padding-left: 134px;
+    padding-right: 134px;
+  }
 
-    .EmailVerifyTitle {
-        font-size: 36px;
-    }
+  .title {
+    font-size: 36px;
+    line-height: 106%;
+  }
 
-    .button {
-        padding: 18px;
-        font-size: 16px;
-        line-height: 24px;
-    }
+  .subTitle {
+    font-size: 18px;
+    line-height: 133%;
+  }
+
+  .text {
+    font-size: 16px;
+    line-height: 150%;
+  }
+
+  .email {
+    font-size: 16px;
+    line-height: 150%;
+  }
+
+  .inputs {
+    gap: 20px;
+  }
+
+  .button {
+    height: 60px;
+    font-size: 16px;
+    line-height: 150%;
+  }
 }
 
 @media (min-width: 1440px) {
-    .EmailVerifyContainer {
-        width: 672px;
-        height: 736px;
-        padding: 169px 118px;
-    }
+  .container {
+    width: 672px;
+    height: 735px;
+    padding-left: 118px;
+    padding-right: 118px;
+  }
+
+  .title {
+    font-size: 36px;
+    line-height: 106%;
+  }
 }

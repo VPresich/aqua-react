@@ -95,12 +95,19 @@ export const updateUser = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       let response = "";
+      console.log("dataUPDATEUser", data);
       if ("avatar" in data) {
         const formData = new FormData();
         for (const [key, value] of Object.entries(data)) {
+          console.log(`Appending to FormData: ${key} =`, value);
           formData.append(key, value);
         }
-        console.log("REQUEST", formData);
+        console.log("REQUESTForm", formData);
+        console.log("Final FormData entries:");
+
+        for (let pair of formData.entries()) {
+          console.log(pair[0], pair[1]);
+        }
         response = await axiosInstance.patch("/users/current", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -151,28 +158,25 @@ export const sendResetEmail = createAsyncThunk(
   }
 );
 
-export const validateResetToken = createAsyncThunk(
-  "users/validateResetToken",
-  async (token, thunkAPI) => {
-    try {
-      const response = await axiosInstance.post("/users/reset-pwd", { token });
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(
-        error.response?.data?.message || error.message
-      );
-    }
-  }
-);
+// export const validateResetToken = createAsyncThunk(
+//   "users/validateResetToken",
+//   async (token, thunkAPI) => {
+//     try {
+//       const response = await axiosInstance.post("/users/reset-pwd", { token });
+//       return response.data;
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(
+//         error.response?.data?.message || error.message
+//       );
+//     }
+//   }
+// );
 
 export const resetPassword = createAsyncThunk(
   "users/resetPassword",
   async (resetData, thunkAPI) => {
     try {
-      const response = await axiosInstance.post("/auth/reset-pwd", {
-        token: resetData.resetToken,
-        password: resetData.password,
-      });
+      const response = await axiosInstance.post("/users/reset-pwd", resetData);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(

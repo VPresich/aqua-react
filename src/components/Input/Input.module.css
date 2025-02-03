@@ -116,10 +116,8 @@ input::placeholder {
 
 @media screen and (min-width: 768px) {
   .label {
-    font-weight: 700;
     font-size: 18px;
     line-height: 133%;
-    letter-spacing: -0.01em;
   }
 
   .input {
