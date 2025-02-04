@@ -95,18 +95,10 @@ export const updateUser = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       let response = "";
-      console.log("dataUPDATEUser", data);
       if ("avatar" in data) {
         const formData = new FormData();
         for (const [key, value] of Object.entries(data)) {
-          console.log(`Appending to FormData: ${key} =`, value);
           formData.append(key, value);
-        }
-        console.log("REQUESTForm", formData);
-        console.log("Final FormData entries:");
-
-        for (let pair of formData.entries()) {
-          console.log(pair[0], pair[1]);
         }
         response = await axiosInstance.patch("/users/current", formData, {
           headers: {
@@ -114,14 +106,12 @@ export const updateUser = createAsyncThunk(
           },
         });
       } else {
-        console.log("REQUEST", data);
         response = await axiosInstance.patch("/users/current", data, {
           headers: {
             "Content-Type": "application/json",
           },
         });
       }
-      console.log("RESPONSE", response.data);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -158,20 +148,6 @@ export const sendResetEmail = createAsyncThunk(
   }
 );
 
-// export const validateResetToken = createAsyncThunk(
-//   "users/validateResetToken",
-//   async (token, thunkAPI) => {
-//     try {
-//       const response = await axiosInstance.post("/users/reset-pwd", { token });
-//       return response.data;
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(
-//         error.response?.data?.message || error.message
-//       );
-//     }
-//   }
-// );
-
 export const resetPassword = createAsyncThunk(
   "users/resetPassword",
   async (resetData, thunkAPI) => {
@@ -190,7 +166,7 @@ export const fetchOAuthUrl = createAsyncThunk(
   "users/fetchOAuthUrl",
   async (_, thunkAPI) => {
     try {
-      const response = await axiosInstance.get("/auth/get-oauth-url");
+      const response = await axiosInstance.get("/users/get-oauth-url");
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(
@@ -205,7 +181,7 @@ export const googleLogin = createAsyncThunk(
   async (googleData, thunkAPI) => {
     try {
       const response = await axiosInstance.post(
-        "/auth/google-login",
+        "/users/google-login",
         googleData
       );
       setAuthHeader(response.data.data.accessToken);
@@ -223,7 +199,6 @@ export const getUsersCount = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axiosInstance.get("/users/count");
-      console.log("getUsersCount", response.data);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(
@@ -252,7 +227,7 @@ export const refresh = createAsyncThunk(
       const state = getState();
       const savedToken = state.auth.accessToken;
       if (!savedToken) {
-        console.warn("Attempt to refresh token without an accessToken");
+        // console.warn("Attempt to refresh token without an accessToken");
         return false;
       }
       return true;

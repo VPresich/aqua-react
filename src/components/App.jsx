@@ -19,9 +19,7 @@ const ConfirmGoogleAuth = lazy(() =>
 );
 import { RestrictedRoute } from "./RestrictedRoute";
 import { PrivateRoute } from "./PrivateRoute";
-
 import { fetchCurrentUser } from "../redux/user/userOps";
-import { errNotify, successNotify } from "../helpers/notification";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -29,12 +27,8 @@ export default function App() {
   useEffect(() => {
     dispatch(fetchCurrentUser())
       .unwrap()
-      .then(() => {
-        successNotify("Ok");
-      })
-      .catch((error) => {
-        errNotify(error.message);
-      });
+      .then(() => {})
+      .catch(() => {});
   }, [dispatch]);
 
   return (

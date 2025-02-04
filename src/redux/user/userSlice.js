@@ -7,7 +7,6 @@ import {
   fetchCurrentUser,
   updateUser,
   sendResetEmail,
-  // validateResetToken,
   resetPassword,
   fetchOAuthUrl,
   googleLogin,
@@ -165,23 +164,6 @@ const userSlice = createSlice({
         }
       })
 
-      // .addCase(validateResetToken.pending, (state) => {
-      //   state.loading = true;
-      //   state.error = null;
-      // })
-      // .addCase(validateResetToken.fulfilled, (state) => {
-      //   state.loading = false;
-      //   state.error = null;
-      // })
-      // .addCase(validateResetToken.rejected, (state, action) => {
-      //   state.loading = false;
-      //   if (typeof action.payload === "string") {
-      //     state.error = action.payload;
-      //   } else {
-      //     state.error = "An error occurred during refresh token.";
-      //   }
-      // })
-
       .addCase(resetPassword.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -204,6 +186,7 @@ const userSlice = createSlice({
         state.error = false;
       })
       .addCase(fetchOAuthUrl.fulfilled, (state, action) => {
+        console.log(action.payload.data.url);
         state.oAuthUrl = action.payload.data.url;
         state.loading = false;
         state.error = false;
@@ -216,6 +199,7 @@ const userSlice = createSlice({
           state.error = "An error occurred in get OAuthUrl.";
         }
       })
+
       .addCase(googleLogin.pending, (state) => {
         state.loading = true;
         state.error = false;
@@ -223,6 +207,7 @@ const userSlice = createSlice({
       .addCase(googleLogin.fulfilled, (state, action) => {
         state.loading = false;
         state.error = false;
+        console.log("SLICE", action.payload.data);
         state.user = action.payload.data.user;
         state.accessToken = action.payload.data.accessToken;
         state.isLoggedIn = true;
