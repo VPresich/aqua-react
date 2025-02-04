@@ -28,15 +28,15 @@ const UserSettingsForm = ({ handleUserSave }) => {
   const [avatar, setAvatar] = useState(avatarURL);
 
   const methods = useForm({
-    resolver: yupResolver(userSettingsFormSchema),
-    defaultValues: userSettingsFormSchema.cast({
+    resolver: yupResolver(userSettingsFormSchema(t)),
+    defaultValues: {
       name: name || email || "",
       email: email || "",
       weight: weight || 0,
       waterNorm: waterNorm || 1.5,
       sportTime: sportTime || 0,
       gender: gender || "female",
-    }),
+    },
     shouldUnregister: true,
   });
 

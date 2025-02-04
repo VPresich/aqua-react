@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 export const emailVerifyFormSchema = (t) =>
-  Yup.object().shape({
+  Yup.object({
     email: Yup.string()
       .email(t("signInPage.emailSpanError"))
       .matches(

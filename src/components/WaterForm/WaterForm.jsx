@@ -1,12 +1,11 @@
-import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import sprite from "../../assets/icons/sprite.svg";
-import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "react-i18next";
+import { waterFormSchema } from "../../helpers/formsValidation/waterFormSchema";
 import css from "./WaterForm.module.css";
 
-export const WaterForm = ({ onSave, initialData }) => {
+export const WaterForm = ({ onSave, initialData = {} }) => {
   const getCurrentTime = () => {
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, "0");
@@ -14,48 +13,24 @@ export const WaterForm = ({ onSave, initialData }) => {
     return `${hours}:${minutes}`;
   };
 
-  const validationSchema = Yup.object({
-    inputField: Yup.number()
-      .required("This field is required")
-      .min(50, "The value cannot be less than 50")
-      .max(5000, "The value cannot exceed 5000"),
-    buttonField: Yup.number()
-      .required("This field is required")
-      .min(50, "The value cannot be less than 50")
-      .max(5000, "The value cannot exceed 5000"),
-    time: Yup.string()
-      .required("Time is required")
-      .matches(/^([0-1]\d|2[0-3]):([0-5]\d)$/, "Invalid time format"),
-  });
-
   const {
     handleSubmit,
     control,
     setValue,
     getValues,
     formState: { errors },
-    reset,
   } = useForm({
     defaultValues: {
-      inputField: 50,
-      buttonField: 50,
-      time: getCurrentTime(),
+      inputField: initialData?.volume ?? 50,
+      buttonField: initialData?.volume ?? 50,
+      time: initialData?.time ?? getCurrentTime(),
     },
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(waterFormSchema()),
   });
 
   const onSubmit = (data) => {
     onSave(data);
   };
-  useEffect(() => {
-    if (initialData) {
-      reset({
-        inputField: initialData.volume || 50,
-        buttonField: initialData.volume || 50,
-        time: initialData.time || getCurrentTime(),
-      });
-    }
-  }, [initialData, reset]);
 
   const { t } = useTranslation();
 
@@ -65,7 +40,7 @@ export const WaterForm = ({ onSave, initialData }) => {
         <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
           <div>
             <label className={css.formLabelBtn}>
-              {t("modals.addEdit.volune")}
+              {t("modals.addEdit.volume")}
             </label>
             <div className={css.formBtn}>
               <button

@@ -9,21 +9,33 @@ export const setupAxiosInterceptors = (store) => {
   axiosInstance.interceptors.response.use(
     (response) => response,
     async (error) => {
+      const originalRequest = error.config;
       if (
         error.response?.status === 401 &&
-        !error.config._retry &&
-        !error.config.url.includes("auth/refresh")
+        !originalRequest._retry &&
+        !originalRequest.url.includes("auth/refresh")
       ) {
-        error.config._retry = true;
+        originalRequest._retry = true;
+
         try {
-          const data = await store.dispatch(refresh());
-          setAuthHeader(data.payload.accessToken);
-          error.config.headers.Authorization = `Bearer ${data.payload.accessToken}`;
-          return axiosInstance(error.config);
+          const response = await store.dispatch(refreshSession());
+          const newAccessToken = response.payload?.data?.accessToken;
+
+          if (!newAccessToken) {
+            throw new Error("Failed to refresh token");
+          }
+          originalRequest.headers = originalRequest.headers || {};
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+
+          return axiosInstance(originalRequest);
         } catch (refreshError) {
-          return Promise.reject(refreshError);
+          console.warn("Token refresh failed:", refreshError);
+          clearAuthHeader();
+          store.dispatch(signOut());
+          return new Promise(() => {});
         }
       }
+
       return Promise.reject(error);
     }
   );
@@ -208,14 +220,16 @@ export const getUsersCount = createAsyncThunk(
   }
 );
 
-export const refresh = createAsyncThunk(
+export const refreshSession = createAsyncThunk(
   "users/refresh",
   async (_, thunkAPI) => {
     try {
       const response = await axiosInstance.post("/users/refresh");
-      const refreshedData = response.data?.data;
-      if (!refreshedData || !refreshedData.accessToken) {
+      const refreshedData = response.data;
+      if (!refreshedData.data?.accessToken) {
         throw new Error("No accessToken in server response");
+      } else {
+        setAuthHeader(refreshedData.data.accessToken);
       }
       return refreshedData;
     } catch (error) {
@@ -227,7 +241,6 @@ export const refresh = createAsyncThunk(
       const state = getState();
       const savedToken = state.auth.accessToken;
       if (!savedToken) {
-        // console.warn("Attempt to refresh token without an accessToken");
         return false;
       }
       return true;

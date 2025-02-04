@@ -1,33 +1,18 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import iconsPath from "../../assets/icons/sprite.svg";
 import AddWaterModal from "../AddWaterModal/AddWaterModal";
-import { addWater } from "../../redux/water/waterOps";
 import { useTranslation } from "react-i18next";
 import css from "./CreateWaterBtn.module.css";
 
 const CreateWaterBtn = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const openModal = () => {
     setIsModalOpen(true);
-    document.body.style.overflow = "hidden";
   };
-
   const closeModal = () => {
     setIsModalOpen(false);
-    document.body.style.overflow = "auto";
-  };
-
-  const handleCreate = () => {
-    openModal();
-  };
-
-  const handleAddWater = (volume) => {
-    dispatch(addWater({ volume }));
-    closeModal();
   };
 
   return (
@@ -35,7 +20,7 @@ const CreateWaterBtn = () => {
       <button
         type="button"
         className={css.btn}
-        onClick={handleCreate}
+        onClick={openModal}
         aria-label="Add water"
       >
         <span className={css.iconContainer}>
@@ -45,9 +30,7 @@ const CreateWaterBtn = () => {
         </span>
         <span className={css.text}>{t("modals.addEdit.btn")}</span>
       </button>
-      {isModalOpen && (
-        <AddWaterModal onClose={closeModal} onAdd={handleAddWater} />
-      )}
+      {isModalOpen && <AddWaterModal onClose={closeModal} />}
     </React.Fragment>
   );
 };

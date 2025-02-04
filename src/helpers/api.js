@@ -4,6 +4,7 @@ export const axiosInstance = axios.create({
   baseURL: "http://localhost:3000",
   // baseURL: "https://aqua-rest-api.onrender.com",
   withCredentials: true,
+  validateStatus: (status) => status !== 401,
 });
 
 export const setAuthHeader = (token) => {

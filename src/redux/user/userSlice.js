@@ -11,6 +11,7 @@ import {
   fetchOAuthUrl,
   googleLogin,
   getUsersCount,
+  refreshSession,
 } from "./userOps";
 
 const initialState = {
@@ -186,7 +187,6 @@ const userSlice = createSlice({
         state.error = false;
       })
       .addCase(fetchOAuthUrl.fulfilled, (state, action) => {
-        console.log(action.payload.data.url);
         state.oAuthUrl = action.payload.data.url;
         state.loading = false;
         state.error = false;
@@ -207,7 +207,6 @@ const userSlice = createSlice({
       .addCase(googleLogin.fulfilled, (state, action) => {
         state.loading = false;
         state.error = false;
-        console.log("SLICE", action.payload.data);
         state.user = action.payload.data.user;
         state.accessToken = action.payload.data.accessToken;
         state.isLoggedIn = true;
@@ -228,7 +227,6 @@ const userSlice = createSlice({
       .addCase(getUsersCount.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        console.log();
         state.usersCount = action.payload.data.usersCount;
       })
       .addCase(getUsersCount.rejected, (state, action) => {
@@ -237,6 +235,24 @@ const userSlice = createSlice({
           state.error = action.payload;
         } else {
           state.error = "An error occurred in users counting.";
+        }
+      })
+
+      .addCase(refreshSession.pending, (state) => {
+        state.isRefreshing = true;
+        state.error = null;
+      })
+      .addCase(refreshSession.fulfilled, (state, action) => {
+        state.isRefreshing = false;
+        state.error = null;
+        state.accessToken = action.payload.data.accessToken;
+      })
+      .addCase(refreshSession.rejected, (state, action) => {
+        state.isRefreshing = false;
+        if (typeof action.payload === "string") {
+          state.error = action.payload;
+        } else {
+          state.error = "An error occurred durring refreshing session.";
         }
       });
   },
