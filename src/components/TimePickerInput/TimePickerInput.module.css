@@ -1,0 +1,22 @@
+.message {
+  position: absolute;
+  bottom: -14px;
+  left: 12px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 129%;
+  letter-spacing: -0.01em;
+}
+
+.error {
+  color: var(--color-error);
+}
+
+@media screen and (min-width: 768px) {
+  .message {
+    font-size: 12px;
+    line-height: 1.17;
+    left: 16px;
+    bottom: -16px;
+  }
+}

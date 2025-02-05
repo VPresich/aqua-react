@@ -1,0 +1,106 @@
+.timepicker__wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.timepicker {
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+  border: 1px solid rgba(47, 47, 47, 0.2);
+  border-radius: 15px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  height: 46px;
+  outline: none;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.01em;
+  color: var(--color-darkblue);
+  background-color: transparent;
+  transition: border-color var(--animation);
+}
+
+.timepicker::placeholder {
+  color: rgba(38, 38, 38, 0.5);
+}
+
+.timepicker:focus,
+.timepicker:hover {
+  border-color: rgba(47, 47, 47, 0.4);
+}
+
+.timepicker.red {
+  border-color: var(--color-error);
+}
+
+.timepicker:-webkit-autofill {
+  color: var(--color-black) !important;
+  -webkit-text-fill-color: var(--color-black) !important;
+  box-shadow: 0 0 0px 1000px white inset;
+}
+
+.timepickert:-webkit-autofill:focus {
+  border: 1px solid rgba(47, 47, 47, 0.4);
+}
+
+.timepicker__icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  color: rgba(47, 47, 47, 0.4);
+  transform: translateY(-50%);
+  transition: color var(--animation);
+}
+
+.timepicker:hover .timepicker__icon {
+  color: var(--color-darkblue);
+}
+
+@media screen and (min-width: 768px) {
+  .timepicker {
+    height: 56px;
+    padding: 16px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: -0.01em;
+    color: var(--color-darkblue);
+  }
+}
+
+.timepicker .react-time-picker__inputGroup__input {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  text-align: center;
+}
+
+.timepicker .react-time-picker {
+  border: none;
+  background: transparent;
+}
+
+.timepicker .react-time-picker__wrapper {
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.timepicker__wrapper .timepicker__clear-icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  right: 40px;
+  transform: translateY(-50%);
+  color: var(--color-error);
+}

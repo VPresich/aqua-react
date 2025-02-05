@@ -21,20 +21,19 @@
   justify-content: center;
   border-radius: 30px;
   background-color: var(--color-lightgreen);
-  transition: background-color 0.5s;
   flex-shrink: 0;
+  transition: background-color var(--animation);
 }
 
 .icon {
   width: 16px;
   height: 16px;
   stroke: var(--color-darkblue);
-  transition: var(--animation);
+  transition: stroke var(--animation);
 }
 
 .text {
   font-family: "Poppins", sans-serif;
-
   font-weight: 700;
   font-size: 16px;
   line-height: 150%;
@@ -45,4 +44,8 @@
 
 .btn:hover .icon {
   stroke: var(--color-white);
+}
+
+.btn:hover .iconContainer {
+  background-color: var(--color-darkblue);
 }

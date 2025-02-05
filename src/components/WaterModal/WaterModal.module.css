@@ -1,26 +1,17 @@
-.waterModal {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: column;
-  border-radius: 15px;
-  /* width: 303px; */
-  /* height: 440px; */
-  box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
-  background: var(--color-white);
-}
-.waterForm {
+.container {
   width: 100%;
 }
-.waterModalTitles {
-  width: 248px;
-  gap: 24px;
-  padding: 0;
+
+.titles {
+  width: 100%;
   display: flex;
   flex-direction: column;
+  gap: 24px;
+  margin-bottom: 20px;
 }
 
-.waterModalTitle {
+.title {
+  width: 100%;
   font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-size: 20px;
@@ -29,7 +20,7 @@
   color: var(--color-darkblue);
 }
 
-.waterModalSubtitle {
+.subtitles {
   font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-size: 16px;
@@ -38,30 +29,25 @@
   color: var(--color-darkblue);
 }
 
-@media screen and (min-width: 768px) {
-  .waterModal {
-    width: 438px;
-    height: 507px;
-  }
-
-  .waterModalTitles {
-    width: 347px;
-  }
-
-  .waterModalTitle {
-    font-size: 28px;
-    line-height: 1.14286;
-  }
-
-  .waterModalSubtitle {
-    font-size: 18px;
-    line-height: 1.33333;
+@media screen and (min-width: 375px) {
+  .container {
+    width: 303px;
   }
 }
 
-@media screen and (min-width: 1440px) {
-  .waterModal {
+@media screen and (min-width: 768px) {
+  .container {
     width: 438px;
-    height: 507px;
+  }
+
+  .title {
+    width: 347px;
+    font-size: 28px;
+    line-height: 1.14;
+  }
+
+  .subtitle {
+    font-size: 18px;
+    line-height: 1.33;
   }
 }
