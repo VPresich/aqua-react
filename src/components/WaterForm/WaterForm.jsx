@@ -56,7 +56,7 @@ export const WaterForm = ({ onSave, initialData = {} }) => {
         <div className={css.buttonsTimeContainer}>
           <div className={css.buttonsControls}>
             <label className={css.label}>{t("modals.addEdit.volume")}</label>
-            <dizv className={css.btnsContainer}>
+            <div className={css.btnsContainer}>
               <button
                 className={css.btn}
                 type="button"
@@ -100,7 +100,7 @@ export const WaterForm = ({ onSave, initialData = {} }) => {
                   <use href={`${sprite}#icon-plus`}></use>
                 </svg>
               </button>
-            </dizv>
+            </div>
           </div>
 
           <div className={css.timePicker}>

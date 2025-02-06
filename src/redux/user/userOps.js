@@ -1,45 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
 import {
   axiosInstance,
   setAuthHeader,
   clearAuthHeader,
 } from "../../helpers/api";
-
-export const setupAxiosInterceptors = (store) => {
-  axiosInstance.interceptors.response.use(
-    (response) => response,
-    async (error) => {
-      const originalRequest = error.config;
-      if (
-        error.response?.status === 401 &&
-        !originalRequest._retry &&
-        !originalRequest.url.includes("auth/refresh")
-      ) {
-        originalRequest._retry = true;
-
-        try {
-          const response = await store.dispatch(refreshSession());
-          const newAccessToken = response.payload?.data?.accessToken;
-
-          if (!newAccessToken) {
-            throw new Error("Failed to refresh token");
-          }
-          originalRequest.headers = originalRequest.headers || {};
-          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-
-          return axiosInstance(originalRequest);
-        } catch (refreshError) {
-          console.warn("Token refresh failed:", refreshError);
-          clearAuthHeader();
-          store.dispatch(signOut());
-          return new Promise(() => {});
-        }
-      }
-
-      return Promise.reject(error);
-    }
-  );
-};
 
 export const signUp = createAsyncThunk(
   "users/register",

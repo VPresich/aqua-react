@@ -13,7 +13,6 @@ import css from "./MonthInfo.module.css";
 
 const MonthInfo = () => {
   const currentMonth = useSelector(selectCalendarMonth);
-  console.log("Current", currentMonth);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -24,8 +23,7 @@ const MonthInfo = () => {
   useEffect(() => {
     dispatch(getMonthWater(currentMonth))
       .unwrap()
-      .then((data) => {
-        console.log("dataMonth", data);
+      .then(() => {
         successNotify(t("toast.fetchMonthDataSuccess"));
       })
       .catch((error) => {

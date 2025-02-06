@@ -8,6 +8,10 @@ export const addWater = createAsyncThunk(
       const response = await axiosInstance.post("/water", water);
       return response.data;
     } catch (error) {
+      if (error.response?.status === 401) {
+        console.log("401");
+        return thunkAPI.rejectWithValue("");
+      }
       return thunkAPI.rejectWithValue(error.message);
     }
   }

@@ -14,7 +14,6 @@ const WaterCardList = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    console.log("waterDate", waterDate);
     dispatch(getDayWater(waterDate))
       .unwrap()
       .then(() => {

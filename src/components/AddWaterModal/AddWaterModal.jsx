@@ -21,6 +21,7 @@ export default function AddWaterModal({ onClose }) {
         onClose();
       })
       .catch(() => {
+        console.log = () => {};
         errNotify(t("toast.addWaterError"));
       });
   };

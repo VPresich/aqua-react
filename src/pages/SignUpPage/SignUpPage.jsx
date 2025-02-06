@@ -21,13 +21,12 @@ export default function SignUpPage() {
         successNotify("Sign in successful!");
         navigate("/tracker");
       } catch (error) {
-        errNotify("Sign in failed. Please try again.");
-        console.log("Sign in failed. Please try again" + error.message);
+        errNotify("Sign in failed. Please try again." + error?.message);
         navigate("/signin");
       }
     } catch (error) {
       errNotify("Sign up failed. Please try again.");
-      throw new Error("Registration failed: " + error.message);
+      throw new Error("Registration failed: " + error?.message);
     }
   };
 

@@ -66,8 +66,6 @@ const UserSettingsForm = ({ handleUserSave }) => {
     if (avatarFile) {
       values.avatar = avatarFile;
     }
-    console.log("User", values);
-
     handleUserSave && handleUserSave(values);
   };
 
