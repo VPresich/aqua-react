@@ -2,7 +2,7 @@ import { useForm, Controller, FormProvider } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useCallback } from "react";
-import TimePickerInput from "../TimePickerInput/TimePickerInput";
+import DateTimePickerInput from "../DateTimePickerInput/DateTimePickerInput";
 import Input from "../Input/Input";
 import { getCurrentTime } from "../../helpers/getCurrentTime";
 import sprite from "../../assets/icons/sprite.svg";
@@ -109,7 +109,7 @@ export const WaterForm = ({ onSave, initialData = {} }) => {
               name="time"
               control={control}
               render={({ field }) => (
-                <TimePickerInput
+                <DateTimePickerInput
                   {...field}
                   setValue={setValue}
                   value={field.value}
