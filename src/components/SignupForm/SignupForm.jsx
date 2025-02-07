@@ -1,7 +1,7 @@
 import { useForm, FormProvider, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../Input/Input";
-import { registerFormSchema } from "../../helpers/formsValidation/registerFormSchema";
+import { signupFormSchema } from "../../helpers/formsValidation/signUpFormSchema.js";
 import FormFooter from "../FormFooter/FormFooter";
 import GoogleButton from "../GoogleButton/GoogleButton";
 
@@ -13,7 +13,7 @@ export default function SignupForm({ handleSignup }) {
   const { t } = useTranslation();
 
   const methods = useForm({
-    resolver: yupResolver(registerFormSchema(t)),
+    resolver: yupResolver(signupFormSchema(t)),
     defaultValues: {
       email: "",
       password: "",
