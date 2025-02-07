@@ -1,9 +1,10 @@
 import { useForm, FormProvider, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../Input/Input";
+import { registerFormSchema } from "../../helpers/formsValidation/registerFormSchema";
 import FormFooter from "../FormFooter/FormFooter";
 import GoogleButton from "../GoogleButton/GoogleButton";
-import { signUpFormSchema } from "../../helpers/formsValidation/signUpFormSchema";
+
 import { useTranslation } from "react-i18next";
 import { errNotify } from "../../helpers/notification";
 import css from "./SignupForm.module.css";
@@ -12,7 +13,7 @@ export default function SignupForm({ handleSignup }) {
   const { t } = useTranslation();
 
   const methods = useForm({
-    resolver: yupResolver(signUpFormSchema(t)),
+    resolver: yupResolver(registerFormSchema(t)),
     defaultValues: {
       email: "",
       password: "",
