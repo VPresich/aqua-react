@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-export const signupFormSchema = (t) =>
+export const signUpFormSchema = (t) =>
   Yup.object({
     email: Yup.string()
       .email(t("signUpPage.emailSpanError"))

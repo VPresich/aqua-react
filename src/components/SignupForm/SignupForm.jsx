@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../Input/Input";
 import FormFooter from "../FormFooter/FormFooter";
 import GoogleButton from "../GoogleButton/GoogleButton";
-import { signupFormSchema } from "../../helpers/formsValidation/signUpFormSchema";
+import { signUpFormSchema } from "../../helpers/formsValidation/signUpFormSchema";
 import { useTranslation } from "react-i18next";
 import { errNotify } from "../../helpers/notification";
 import css from "./SignupForm.module.css";
@@ -12,7 +12,7 @@ export default function SignupForm({ handleSignup }) {
   const { t } = useTranslation();
 
   const methods = useForm({
-    resolver: yupResolver(signupFormSchema(t)),
+    resolver: yupResolver(signUpFormSchema(t)),
     defaultValues: {
       email: "",
       password: "",
