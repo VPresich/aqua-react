@@ -36,7 +36,9 @@ export default function ResetPasswordForm() {
       .unwrap()
       .then(() => {
         reset();
-        successNotify("Password reset successful.");
+        if (import.meta.env.VITE_DEVELOPED_MODE === "true") {
+          successNotify("Password reset successful.");
+        }
         setIsPwdChanged(true);
       })
       .catch(() => {

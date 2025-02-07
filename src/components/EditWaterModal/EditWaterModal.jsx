@@ -23,7 +23,9 @@ export default function EditWaterModal({ onClose, waterCard }) {
     )
       .unwrap()
       .then(() => {
-        successNotify(t("toast.editWaterSuccess"));
+        if (import.meta.env.VITE_DEVELOPED_MODE === "true") {
+          successNotify(t("toast.editWaterSuccess"));
+        }
         onClose();
       })
       .catch((error) => {

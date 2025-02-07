@@ -15,7 +15,9 @@ export default function SignInPage() {
   const handleSignin = async (values) => {
     try {
       await dispatch(signIn(values)).unwrap();
-      successNotify("Sign in is successful!");
+      if (import.meta.env.VITE_DEVELOPED_MODE === "true") {
+        successNotify("Sign in is successful!");
+      }
       navigate("/tracker");
     } catch (error) {
       errNotify("Sign in failed. Please try again.");

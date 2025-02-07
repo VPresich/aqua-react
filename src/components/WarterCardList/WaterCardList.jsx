@@ -17,7 +17,9 @@ const WaterCardList = () => {
     dispatch(getDayWater(waterDate))
       .unwrap()
       .then(() => {
-        successNotify(t("toast.fetchUserDataSuccess"));
+        if (import.meta.env.VITE_DEVELOPED_MODE === "true") {
+          successNotify(t("toast.fetchUserDataSuccess"));
+        }
       })
       .catch((error) => {
         errNotify(t("toast.fetchUserDataError"), { message: error.message });

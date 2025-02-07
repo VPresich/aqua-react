@@ -15,10 +15,14 @@ export default function SignUpPage() {
   const handleSignup = async (values) => {
     try {
       await dispatch(signUp(values)).unwrap();
-      successNotify("Registration is successful!");
+      if (import.meta.env.VITE_DEVELOPED_MODE === "true") {
+        successNotify("Registration is successful!");
+      }
       try {
         await dispatch(signIn(values)).unwrap();
-        successNotify("Sign in successful!");
+        if (import.meta.env.VITE_DEVELOPED_MODE === "true") {
+          successNotify("Sign in successful!");
+        }
         navigate("/tracker");
       } catch (error) {
         errNotify("Sign in failed. Please try again." + error?.message);

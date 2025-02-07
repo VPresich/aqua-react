@@ -69,7 +69,9 @@ export default function UserBar() {
       dispatch(fetchCurrentUser())
         .unwrap()
         .then(() => {
-          successNotify(t("toast.fetchUserSuccess"));
+          if (import.meta.env.VITE_DEVELOPED_MODE === "true") {
+            successNotify(t("toast.fetchUserSuccess"));
+          }
           setShowPopover(false);
           setShowUserForm(true);
         })
@@ -83,7 +85,9 @@ export default function UserBar() {
     dispatch(updateUser(data))
       .unwrap()
       .then(() => {
-        successNotify("toast.settingsUpdateSuccess");
+        if (import.meta.env.VITE_DEVELOPED_MODE === "true") {
+          successNotify("toast.settingsUpdateSuccess");
+        }
         setShowUserForm(false);
       })
       .catch(() => {
@@ -100,7 +104,9 @@ export default function UserBar() {
     dispatch(signOut())
       .unwrap()
       .then(() => {
-        successNotify("toast.logoutSuccess");
+        if (import.meta.env.VITE_DEVELOPED_MODE === "true") {
+          successNotify("toast.logoutSuccess");
+        }
       })
       .catch(() => {
         errNotify("toast.logoutError");

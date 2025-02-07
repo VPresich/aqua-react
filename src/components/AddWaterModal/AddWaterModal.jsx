@@ -17,7 +17,9 @@ export default function AddWaterModal({ onClose }) {
     dispatch(addWater({ date, volume: values.inputField }))
       .unwrap()
       .then(() => {
-        successNotify(t("toast.addWaterSuccess"));
+        if (import.meta.env.VITE_DEVELOPED_MODE === "true") {
+          successNotify(t("toast.addWaterSuccess"));
+        }
         onClose();
       })
       .catch(() => {

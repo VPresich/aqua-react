@@ -36,7 +36,9 @@ export default function EmailVerifyForm() {
       .then(() => {
         setIsSendMail(true);
         setEmail(values.email);
-        successNotify("Success sending reset email");
+        if (import.meta.env.VITE_DEVELOPED_MODE === "true") {
+          successNotify("Success sending reset email");
+        }
       })
       .catch((error) => {
         errNotify(`Error sending reset email ${error.message}`);

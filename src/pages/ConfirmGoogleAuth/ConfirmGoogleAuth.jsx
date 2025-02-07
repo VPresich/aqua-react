@@ -14,7 +14,9 @@ export default function ConfirmGoogleAuth() {
       dispatch(googleLogin({ code }))
         .unwrap()
         .then(() => {
-          successNotify("Google login successful");
+          if (import.meta.env.VITE_DEVELOPED_MODE === "true") {
+            successNotify("Google login successful");
+          }
           navigate("/tracker");
         })
         .catch((error) => {

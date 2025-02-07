@@ -19,5 +19,3 @@ export const successNotify = (msg) => {
     },
   });
 };
-
-// toast.success("Deleted water successfully!",

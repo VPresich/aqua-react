@@ -56,7 +56,7 @@ const CalendarPagination = ({ onMonthChange }) => {
         </svg>
       </button>
       <span className={css.text}>
-        {t(`ChooseDate.${monthNames[currentMonth.getMonth()].toLowerCase()}`)},
+        {t(`ChooseDate.${monthNames[currentMonth.getMonth()].toLowerCase()}`)},{" "}
         {currentMonth.getFullYear()}
       </span>
       <button

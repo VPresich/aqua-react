@@ -24,7 +24,9 @@ const MonthInfo = () => {
     dispatch(getMonthWater(currentMonth))
       .unwrap()
       .then(() => {
-        successNotify(t("toast.fetchMonthDataSuccess"));
+        if (import.meta.env.VITE_DEVELOPED_MODE === "true") {
+          successNotify(t("toast.fetchMonthDataSuccess"));
+        }
       })
       .catch((error) => {
         errNotify(t("toast.fetchMonthDataError"), { message: error.message });

@@ -12,7 +12,9 @@ export default function DeleteWaterModal({ onClose, waterId }) {
     dispatch(deleteWater(waterId))
       .unwrap()
       .then(() => {
-        successNotify(t("toast.deleteWaterSuccess"));
+        if (import.meta.env.VITE_DEVELOPED_MODE === "true") {
+          successNotify(t("toast.deleteWaterSuccess"));
+        }
       })
       .catch(() => {
         errNotify(t("toast.deleteWaterError"));
