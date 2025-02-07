@@ -2,8 +2,8 @@ import axios from "axios";
 import { signOut, refreshSession } from "../redux/user/userOps";
 
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000",
-  // baseURL: "https://aqua-rest-api.onrender.com",
+  // baseURL: "http://localhost:3000",
+  baseURL: "https://aqua-rest-api.onrender.com",
   withCredentials: true,
 });
 
